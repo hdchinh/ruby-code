@@ -14,6 +14,18 @@ class Node
     end
   end
 
+  def include?(val)
+    return true if(@value == val)
+
+    if(@value > val)
+      return false if !@left
+      @left.include?(val)
+    else
+      return false if !@right
+      @right.include?(val)
+    end
+  end
+
   private
 
   def add_left(val)
