@@ -5,6 +5,12 @@ class Node
     @value = val
   end
 
+  def get_tree
+    puts "#{value}\n"
+    @left.get_tree() if @left
+    @right.get_tree() if @right
+  end
+
   def add(new_val)
     return if @value == new_val
     if(@value > new_val)
@@ -23,6 +29,21 @@ class Node
     else
       return false if !@right
       @right.include?(val)
+    end
+  end
+
+  def update(current_value, new_value)
+    if(@value == current_value)
+      @value = new_value
+      return true
+    end
+
+    if(@value > current_value)
+      return false if !@left
+      @left.update(current_value, new_value)
+    else
+      return false if !@right
+      @right.update(current_value, new_value)
     end
   end
 
@@ -52,6 +73,14 @@ puts "#{a.value} | #{a.left ? a.left.value : nil} | #{a.right ? a.right.value : 
 a.add(2)
 a.add(7)
 a.add(9)
+
+a.get_tree()
+
+a.update(7, 6)
+
+puts "#{a.value} | #{a.left ? a.left.value : nil} | #{a.right ? a.right.value : nil}"
+
+a.get_tree()
 
 b = a.right
 puts "#{b.value} | #{b.left ? b.left.value : nil} | #{b.right ? b.right.value : nil}"
